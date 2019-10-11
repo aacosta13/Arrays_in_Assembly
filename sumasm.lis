@@ -1,0 +1,36 @@
+     1                                  ;Using C, C++, and Assembly to work with Arrays - Assignment 4
+     2                                  ;Sum module
+     3                                  ;Armando Acosta
+     4                                  ;CPSC 240-03
+     5                                  
+     6                                  ;Assemble: nasm -f elf64 -l sumasm.lis -o sumobj.asm sum.asm
+     7                                  
+     8                                  global sumfunc
+     9                                  extern controlfunc
+    10                                  extern printf
+    11                                  extern numbers
+    12                                  
+    13                                  segment .data
+    14                                  
+    15                                  segment .bss
+    16                                  
+    17                                  segment .text
+    18                                  sumfunc:
+    19                                  ;Set r10 to be sum register, r9 as counter, r11 as placeholder
+    20 00000000 4989FD                  mov r13, rdi
+    21 00000003 4989F6                  mov r14, rsi
+    22 00000006 41BA00000000            mov r10, 0
+    23 0000000C 41B900000000            mov r9, 0
+    24                                  
+    25                                  sumloop:
+    26 00000012 4F8B5CCD00              mov r11, [r13+r9*8]
+    27 00000017 4C01D8                  add rax, r11
+    28 0000001A 49FFC1                  inc r9
+    29 0000001D 4D39F1                  cmp r9, r14
+    30 00000020 7402                    je continue
+    31 00000022 EBEE                    jmp sumloop
+    32                                  
+    33                                  continue:
+    34                                  
+    35 00000024 C3                      ret
+    36                                  
